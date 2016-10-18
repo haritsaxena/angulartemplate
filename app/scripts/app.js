@@ -1,4 +1,5 @@
-'use strict';
+(function(){
+  'use strict';
 
 /**
  * @ngdoc overview
@@ -15,21 +16,26 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.router',
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
+  .config(['$stateProvider', '$urlRouterProvider', 
+    function ($stateProvider, $urlRouterProvider) {
+    
+    $urlRouterProvider.otherwise('/');
+    
+    $stateProvider
+      .state('/', {
+        url: '/',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/about', {
+      .state('about', {
+        url: '/about', 
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
-      })
-      .otherwise({
-        redirectTo: '/'
       });
-  });
+  }]);
+})();
